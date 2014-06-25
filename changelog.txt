@@ -1,2 +1,5 @@
 [B]Version 0.1.0[/B]
 - initial build
+
+[B]Version 0.1.2[/B]
+- Corrected Issues with device compatibility

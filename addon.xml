@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="plugin.video.infowars"
        name="Infowars"
-       version="0.1.1"
+       version="0.1.2"
        provider-name="Prafit">
   <requires>
-  	<import addon="xbmc.python" version="2.0"/>
-  	<import addon="script.module.urlresolver" version="2.0.9"/>
-  	<import addon="script.module.t0mm0.common" version="1.0.0"/>
-  	<import addon="script.module.metahandler" version="2.0.3"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-  	<provides>video</provides>
-  </extension>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.urlresolver" version="2.2.0"/>
+        <import addon="script.module.addon.common" version="2.0.0" />
+        <import addon="script.module.metahandler" version="2.6.0" />
+        <import addon="script.module.myconnpy" version="1.1.6" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.service" library="service.py" start="startup">
+    </extension>
   <extension point="xbmc.addon.metadata">
   	<summary>Videos from Infowars.com Including live daily shows</summary>
   	<description>Videos from Infowars.com Including live daily shows</description>
@@ -19,7 +22,7 @@
   	<language>en</language>
   	<platform>all</platform>
   	<forum>http://www.xbmchub.com/forums/</forum>
-  	<website>http://github.com/INFOWARS</website>
+  	<website>https://github.com/prafit/plugin.video.infowars</website>
   	<email></email>
   </extension>
 </addon>
