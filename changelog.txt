@@ -6,3 +6,10 @@
 
 [B]Version 0.1.3[/B]
 - Added Alex Jones Documentaries
+
+[B]Version 0.1.4[/B]
+- Added Infowars Live Audio
+- Added Infowars Historic Live Audio
+- Added Infowars Historic Live Video
+- Added Infowars Clips
+- Added Infowars Nightly News

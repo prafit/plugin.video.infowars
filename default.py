@@ -5,6 +5,7 @@
 ### ############################################################################################################
 ### ############################################################################################################
 ### Plugin Settings ###
+
 def ps(x):
 	return {
 		'__plugin__': 					"Infowars"
@@ -12,7 +13,7 @@ def ps(x):
 		,'__credits__': 				""
 		,'_addon_id': 					"plugin.video.infowars"
 		,'_plugin_id': 					"plugin.video.infowars"
-		,'_domain_url': 				"http://infowars.com"
+		,'_domain_url': 				"infowars.com"
 		,'_database_name': 			"infowars"
 		,'_addon_path_art': 		"art"
 		,'special.home.addons': 'special:'+os.sep+os.sep+'home'+os.sep+'addons'+os.sep
@@ -51,7 +52,7 @@ def ps(x):
 ##Notes-> Some Default imports so that you can use the functions that are available to them.
 import xbmc,xbmcplugin,xbmcgui,xbmcaddon,xbmcvfs
 import urllib,urllib2,re,os,sys,htmllib,string,StringIO,logging,random,array,time,datetime
-#
+import plugintools
 import copy
 import HTMLParser, htmlentitydefs
 ##Notes-> Common script.module.___ that is used by many to resolve urls of many video hosters.
@@ -128,7 +129,8 @@ _setting['label-empty-favorites']=tfalse(addst('label-empty-favorites'))
 _default_section_=ps('default_section'); net=Net(); DB=_database_file; BASE_URL=_domain_url;
 ### ############################################################################################################
 ##Notes-> Some important time saving functions to shorten your work later.
-def eod(): _addon.end_of_directory() ## used at the end of a folder listing to print the list to the screen.
+#def eod(): _addon.end_of_directory() ## used at the end of a folder listing to print the list to the screen.
+def eod(): xbmcplugin.endOfDirectory(int(sys.argv[1]))
 def myNote(header='',msg='',delay=5000,image=''): _addon.show_small_popup(title=header,msg=msg,delay=delay,image=image)
 def cFL( t,c=ps('default_cFL_color')): return '[COLOR '+c+']'+t+'[/COLOR]' ### For Coloring Text ###
 def cFL_(t,c=ps('default_cFL_color')): return '[COLOR '+c+']'+t[0:1]+'[/COLOR]'+t[1:] ### For Coloring Text (First Letter-Only) ###
@@ -207,18 +209,27 @@ def PlayURL(url):
 	except: t=''
 	try: play.play(url)
 	except: t=''
+	
+def play(params):
+    plugintools.play_resolved_url( params.get("url") )	
+    
 ### ############################################################################################################
 ### ############################################################################################################
-### ############################################################################################################
+
+def Menu_MainMenu(): #The Main Menu
+	WhereAmI('@ the Main Menu')
+	_addon.add_directory({'mode': 'PlayURL','url':'http://cdn.rbm.tv:1935/rightbrainmedia-originpull-2/_definst_/mp4:247daily2/playlist.m3u8'},{'title':  cFL_('Infowars.com Live Video(Loops After Airing)',ps('cFL_color'))},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'http://www.infowars.com/stream.pls'},{'title':  cFL_('Infowars.com Live Audio(Loops After Airing)',ps('cFL_color'))},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'NightlyNewsSubMenu','title':'Infowars Nightly News'},{'title':  cFL_('Infowars Nightly News',ps('cFL_color3'))},is_folder=True,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'ClipsSubMenu','title':'Infowars Nightly News'},{'title':  cFL_('Infowars Clips',ps('cFL_color3'))},is_folder=True,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'DocSubMenu','title':'Acclaimed Documentaries'},{'title':  cFL_('Acclaimed Documentaries',ps('cFL_color6'))},is_folder=True,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'HistoricShowsSubMenu','title':'Historic Shows(video)'},{'title':  cFL_('Historic Shows(Video)',ps('cFL_color2'))},is_folder=True,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'HistoricShowsAudioSubMenu','title':'Historic Shows(video)'},{'title':  cFL_('Historic Shows(Audio)',ps('cFL_color2'))},is_folder=True,img=_artIcon,fanart=_artFanart)
+	eod()
 
 
-
-
-
-
-
-
-def Just_A_Sub_Menu(title=''): #The Main Menu
+def Documentary_Sub_Menu(title=''): #The Main Menu
+	WhereAmI('@ Documentaries')
 	#mode left blank for main menu.
 	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=eAaQNACwaLw'},{'title':'The Obama Deception'},is_folder=False,img=_artIcon,fanart=_artFanart)
 	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=t-yscpNIxjI'},{'title':'The 9/11 Chronicles Part One: Truth Rising'},is_folder=False,img=_artIcon,fanart=_artFanart)
@@ -234,40 +245,119 @@ def Just_A_Sub_Menu(title=''): #The Main Menu
 	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=GKty_3IlXOc'},{'title':'Police State 2000 Martial Law Posse Comitatus'},is_folder=False,img=_artIcon,fanart=_artFanart)
 	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=4Cf_tZzABgE'},{'title':'Police State 2: The Takeover'},is_folder=False,img=_artIcon,fanart=_artFanart)
 	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=K4RWRm-bgv8'},{'title':'Police State 3: Total Enslavement'},is_folder=False,img=_artIcon,fanart=_artFanart)
-	_addon.add_directory({'mode': ''},{'title':  cFL_('<-- Main Menu',ps('cFL_color3'))},is_folder=True,img=_artIcon,fanart=_artFanart)
-	#_addon.add_directory({'mode': ''},{'title':  cFL_(title+'  <--',ps('cFL_color3'))},is_folder=True,img=_artIcon,fanart=_artFanart)
-	
 	eod() #Ends the directory listing and prints it to the screen.  if you dont use eod() or something like it, the menu items won't be put to the screen.
 
+def Nightly_News_Sub_Menu(title=''): #The Main Menu
+    WhereAmI('@ Nightly News')
+    url = 'http://gdata.youtube.com/feeds/api/users/ConspiracyScope/uploads?start-index=1&max-results=30'
+    response = urllib2.urlopen(url)
+    if response and response.getcode() == 200:
+        content = response.read()
+        videos= plugintools.find_multiple_matches(content,"<entry>(.*?)</entry>")
+        for entry in videos:
+            title = plugintools.find_single_match(entry,"<titl[^>]+>([^<]+)</title>")
+            plot = plugintools.find_single_match(entry,"<media\:descriptio[^>]+>([^<]+)</media\:description>")
+            thumbnail = plugintools.find_single_match(entry,"<media\:thumbnail url='([^']+)'")
+            video_id = plugintools.find_single_match(entry,"http\://www.youtube.com/watch\?v\=([^\&]+)\&").replace("&amp;","&")
+            url = "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+video_id
+            if title.find('Nightly News') > -1:
+                print title
+                print plot
+                print thumbnail
+                print url
+                plugintools.add_item( action="play" , title=title , plot=plot , url=url ,thumbnail=thumbnail , folder=False )
+    else:
+        util.showError(ADDON_ID, 'Could not open URL %s to create menu' % (url))
 
-
-##Notes-> Your Main Menu
-def Menu_MainMenu(): #The Main Menu
-	WhereAmI('@ the Main Menu')
-	#Added 'title' to the params passed along with mode as an example of how to do it.  Same can be done for 'url' and others stuff, such as an image or fanart.
-	#
-	_addon.add_directory({'mode': 'PlayURL','url':'http://cdn.rbm.tv:1935/rightbrainmedia-originpull-2/_definst_/mp4:247daily2/playlist.m3u8'},{'title':  cFL_('Infowars.com Live Video(Loops After Airing)',ps('cFL_color'))},is_folder=False,img=_artIcon,fanart=_artFanart)
+    eod()
 	
-	_addon.add_directory({'mode': 'ASubMenu','title':'Acclaimed Documentaries'},{'title':  cFL_('Acclaimed Documentaries',ps('cFL_color3'))},is_folder=True,img=_artIcon,fanart=_artFanart)
-	#
-	#_addon.add_directory({'mode': 'ResolverSettings'},{'title':  cFL_('Url-Resolver Settings',ps('cFL_color2'))},is_folder=False,img=_artIcon,fanart=_artFanart)
-	#
-	#_addon.add_directory({'mode': 'Settings'}, 				{'title':  cFL_('Plugin Settings',ps('cFL_color2'))}			,is_folder=False,img=_artIcon,fanart=_artFanart)
-	#Ends the directory listing and prints it to the screen.  if you dont use eod() or something like it, the menu items won't be put to the screen.
-	eod()
+def Historic_Shows_Sub_Menu(title=''): #The Main Menu
+    WhereAmI('@ Historic Shows Video')
+    url = 'http://gdata.youtube.com/feeds/api/users/ConspiracyScope/uploads?start-index=1&max-results=30'
+    response = urllib2.urlopen(url)
+    if response and response.getcode() == 200:
+        content = response.read()
+        videos= plugintools.find_multiple_matches(content,"<entry>(.*?)</entry>")
+        for entry in videos:
+            title = plugintools.find_single_match(entry,"<titl[^>]+>([^<]+)</title>")
+            plot = plugintools.find_single_match(entry,"<media\:descriptio[^>]+>([^<]+)</media\:description>")
+            thumbnail = plugintools.find_single_match(entry,"<media\:thumbnail url='([^']+)'")
+            video_id = plugintools.find_single_match(entry,"http\://www.youtube.com/watch\?v\=([^\&]+)\&").replace("&amp;","&")
+            url = "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+video_id
+            if title.find('Alex Jones Show') > -1:
+                if title.find('Podcast') == -1:
+                    plugintools.add_item( action="play" , title=title , plot=plot , url=url ,thumbnail=thumbnail , folder=False )
+    else:
+        util.showError(ADDON_ID, 'Could not open URL %s to create menu' % (url))
 
+    eod()	
+	
+def Clips_Sub_Menu(title=''): #The Main Menu
+    WhereAmI('@ Clips')
+    url = 'http://gdata.youtube.com/feeds/api/users/TheAlexJonesChannel/uploads?start-index=1&max-results=30'
+    response = urllib2.urlopen(url)
+    if response and response.getcode() == 200:
+        content = response.read()
+        videos= plugintools.find_multiple_matches(content,"<entry>(.*?)</entry>")
+        for entry in videos:
+            title = plugintools.find_single_match(entry,"<titl[^>]+>([^<]+)</title>")
+            plot = plugintools.find_single_match(entry,"<media\:descriptio[^>]+>([^<]+)</media\:description>")
+            thumbnail = plugintools.find_single_match(entry,"<media\:thumbnail url='([^']+)'")
+            video_id = plugintools.find_single_match(entry,"http\://www.youtube.com/watch\?v\=([^\&]+)\&").replace("&amp;","&")
+            url = "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+video_id
+            plugintools.add_item( action="play" , title=title , plot=plot , url=url ,thumbnail=thumbnail , folder=False )
+    else:
+        util.showError(ADDON_ID, 'Could not open URL %s to create menu' % (url))
 
+    eod()
 
+def Historic_Shows_Audio_Sub_Menu(title=''): #The Main Menu
+    WhereAmI('@ Historic Audio Shows')
+    # url = 'http://xml.nfowars.net/Alex.rss'
+    # response = urllib2.urlopen(url)
+    # if response and response.getcode() == 200:
+        # content = response.read()
+        # videos= plugintools.find_multiple_matches(content,"<item>(.*?)</item>")
+        # for entry in videos:
+            # title = plugintools.find_single_match(entry,"<titl[^>]+>([^<]+)</title>")
+            # plot = plugintools.find_single_match(entry,"<descriptio[^>]+>([^<]+)</description>")
+            # url = plugintools.find_single_match(entry,"<gui[^>]+>([^<]+)</guid>")
+            # plugintools.add_item( action="mp3play" , title=title , plot=plot , url=url ,thumbnail=_artIcon , folder=False )
+    # else:
+        # util.showError(ADDON_ID, 'Could not open URL %s to create menu' % (url))
 
-### ############################################################################################################
-### ############################################################################################################
-### ############################################################################################################
-##### Modes #####
+    # eod()	
+    WhereAmI('@ Nightly News')
+    url = 'http://gdata.youtube.com/feeds/api/users/ConspiracyScope/uploads?start-index=1&max-results=30'
+    response = urllib2.urlopen(url)
+    if response and response.getcode() == 200:
+        content = response.read()
+        videos= plugintools.find_multiple_matches(content,"<entry>(.*?)</entry>")
+        for entry in videos:
+            title = plugintools.find_single_match(entry,"<titl[^>]+>([^<]+)</title>")
+            plot = plugintools.find_single_match(entry,"<media\:descriptio[^>]+>([^<]+)</media\:description>")
+            thumbnail = plugintools.find_single_match(entry,"<media\:thumbnail url='([^']+)'")
+            video_id = plugintools.find_single_match(entry,"http\://www.youtube.com/watch\?v\=([^\&]+)\&").replace("&amp;","&")
+            url = "plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid="+video_id
+            if title.find('Alex Jones Show') > -1:
+                if title.find('Podcast') > -1:
+                    plugintools.add_item( action="play" , title=title , plot=plot , url=url ,thumbnail=thumbnail , folder=False )
+    else:
+        util.showError(ADDON_ID, 'Could not open URL %s to create menu' % (url))
+
+    eod()
+    
+    
 def check_mode(mode=''):
+	WhereAmI('@ Checking Mode')
 	deb('Mode',mode)
 	if (mode=='') or (mode=='main') or (mode=='MainMenu'):  Menu_MainMenu() ## Default Menu
 	elif (mode=='PlayURL'): 							PlayURL(_param['url']) ## Play Video
-	elif (mode=='ASubMenu'): 						Just_A_Sub_Menu(_param['title']) ## Play Video
+	elif (mode=='DocSubMenu'): 						Documentary_Sub_Menu(_param['title']) ## Play Video
+	elif (mode=='ClipsSubMenu'): 						Clips_Sub_Menu(_param['title']) ## Play Video
+	elif (mode=='NightlyNewsSubMenu'): 						Nightly_News_Sub_Menu(_param['title']) ## Play Video
+	elif (mode=='HistoricShowsSubMenu'): 						Historic_Shows_Sub_Menu(_param['title']) ## Play Video
+	elif (mode=='HistoricShowsAudioSubMenu'): 						Historic_Shows_Audio_Sub_Menu(_param['title']) ## Play Video
 	elif (mode=='Settings'): 							_addon.addon.openSettings() # Another method: _plugin.openSettings() ## Settings for this addon.
 	elif (mode=='ResolverSettings'): 			urlresolver.display_settings()  ## Settings for UrlResolver script.module.
 	#
@@ -277,8 +367,8 @@ def check_mode(mode=''):
 	#
 	#
 	else: myNote(header='Mode:  "'+mode+'"',msg='[ mode ] not found.'); Menu_MainMenu() ## So that if a mode isn't found, it'll goto the Main Menu and give you a message about it.
-##### /\ ##### Modes #####
-### ############################################################################################################
+
+
 deb('param >> title',_param['title'])
 deb('param >> url',_param['url']) ### Simply Logging the current query-passed / param -- URL
 check_mode(_param['mode']) ### Runs the function that checks the mode and decides what the plugin should do. This should be at or near the end of the file.
