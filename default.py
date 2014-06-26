@@ -1,9 +1,6 @@
 ### ############################################################################################################
 ###	#	
-### # Project: 			#		A Video Addon Tutorial Starter-Example - by The Highway 2013.
-### # Author: 			#		The Highway
-### # Version:			#		v0.1.0
-### # Description: 	#		I hope this helps.
+### # Project: 			#		Infowars.com Plugin
 ###	#	
 ### ############################################################################################################
 ### ############################################################################################################
@@ -223,8 +220,23 @@ def PlayURL(url):
 
 def Just_A_Sub_Menu(title=''): #The Main Menu
 	#mode left blank for main menu.
-	_addon.add_directory({'mode': ''},{'title':  cFL_('Go To The Main Menu',ps('cFL_color3'))},is_folder=True,img=_artIcon,fanart=_artFanart)
-	_addon.add_directory({'mode': ''},{'title':  cFL_(title+'  <--',ps('cFL_color3'))},is_folder=True,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=eAaQNACwaLw'},{'title':'The Obama Deception'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=t-yscpNIxjI'},{'title':'The 9/11 Chronicles Part One: Truth Rising'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=x-CrNlilZho'},{'title':'End Game'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=vrXgLhkv21Y'},{'title':'TerrorStorm'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=BqxUFVsmPcQ'},{'title':'Martial Law: 9/11 Rise of the Police State'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=OVMyH8eOHKs'},{'title':'911: The Road to Tyranny'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=nxllWCPw6sU'},{'title':'Matrix of Evil'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=vsKVyhuBf3c'},{'title':'America Destroyed by Design'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=1Fr5QC6u2EQ'},{'title':'American Dictators'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=FVtEvplXMLs'},{'title':'Dark Secrets: Inside Bohemian Grove'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=VhlRIH9iPD4'},{'title':'The Order of Death'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=GKty_3IlXOc'},{'title':'Police State 2000 Martial Law Posse Comitatus'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=4Cf_tZzABgE'},{'title':'Police State 2: The Takeover'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': 'PlayURL','url':'plugin://plugin.video.youtube/?path=/root/video&action=play_video&videoid=K4RWRm-bgv8'},{'title':'Police State 3: Total Enslavement'},is_folder=False,img=_artIcon,fanart=_artFanart)
+	_addon.add_directory({'mode': ''},{'title':  cFL_('<-- Main Menu',ps('cFL_color3'))},is_folder=True,img=_artIcon,fanart=_artFanart)
+	#_addon.add_directory({'mode': ''},{'title':  cFL_(title+'  <--',ps('cFL_color3'))},is_folder=True,img=_artIcon,fanart=_artFanart)
+	
 	eod() #Ends the directory listing and prints it to the screen.  if you dont use eod() or something like it, the menu items won't be put to the screen.
 
 
@@ -233,9 +245,10 @@ def Just_A_Sub_Menu(title=''): #The Main Menu
 def Menu_MainMenu(): #The Main Menu
 	WhereAmI('@ the Main Menu')
 	#Added 'title' to the params passed along with mode as an example of how to do it.  Same can be done for 'url' and others stuff, such as an image or fanart.
-	#_addon.add_directory({'mode': 'ASubMenu','title':'This has been a test.'},{'title':  cFL_('Test Folder',ps('cFL_color3'))},is_folder=True,img=_artIcon,fanart=_artFanart)
 	#
 	_addon.add_directory({'mode': 'PlayURL','url':'http://cdn.rbm.tv:1935/rightbrainmedia-originpull-2/_definst_/mp4:247daily2/playlist.m3u8'},{'title':  cFL_('Infowars.com Live Video(Loops After Airing)',ps('cFL_color'))},is_folder=False,img=_artIcon,fanart=_artFanart)
+	
+	_addon.add_directory({'mode': 'ASubMenu','title':'Acclaimed Documentaries'},{'title':  cFL_('Acclaimed Documentaries',ps('cFL_color3'))},is_folder=True,img=_artIcon,fanart=_artFanart)
 	#
 	#_addon.add_directory({'mode': 'ResolverSettings'},{'title':  cFL_('Url-Resolver Settings',ps('cFL_color2'))},is_folder=False,img=_artIcon,fanart=_artFanart)
 	#

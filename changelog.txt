@@ -3,3 +3,6 @@
 
 [B]Version 0.1.2[/B]
 - Corrected Issues with device compatibility
+
+[B]Version 0.1.3[/B]
+- Added Alex Jones Documentaries
