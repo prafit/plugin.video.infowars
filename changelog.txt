@@ -13,3 +13,16 @@
 - Added Infowars Historic Live Video
 - Added Infowars Clips
 - Added Infowars Nightly News
+
+[B]Version 1.0.0[/B]
+- Added More Documentaries
+- Added Add to Library Feature for Documentaries
+- Added Add to Library Feature for Infowars Nightly News
+- Cleaned up the settings for the app so only items pertent to end user listed.
+
+[B]Version 1.0.1[/B]
+- Added License.txt(open source license)
+- Removed colors from nightly news, caused issues on some devices when added to library.
+
+[B]Version 2.0[/B]
+- Update for Kodi, removed many unncessary dependencies
